@@ -1,4 +1,5 @@
 package com.roxkax.mvvmcore.injection
+
 import androidx.lifecycle.ViewModelProvider
 import com.roxkax.mvvmcore.viewModels.BaseViewModel
 import dagger.Binds
@@ -20,7 +21,7 @@ abstract class BaseViewModelModule {
      * the [ViewModelFactory] will be provided.
      */
     @Binds
-    internal abstract fun providesViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+    abstract fun providesViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
     /**
      * Annotation used as [MapKey] so that the [BaseViewModel] classes can be provided into a map to
