@@ -13,14 +13,14 @@ import javax.inject.Inject
 
 /**
  * An [AppCompatActivity] that abstracts the initialization of an Mvvm Activity
- * @param T Type of the desired binding class.
+ * @param B Type of the desired binding class.
  * @param V Type of the associated ViewModel
  * @param layoutId The resource ID of the layout to be inflated, bound, and set as the
  *                 Activity's content.
  * @param viewModelVariable The BR id of the variable to be set
  * @param viewModelClass Class of the associated ViewModel
  */
-abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel>(
+abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel>(
     private val layoutId: Int,
     private val viewModelVariable: Int,
     private val viewModelClass: Class<V>
@@ -29,7 +29,7 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel>(
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var viewDataBinding: T
+    private lateinit var viewDataBinding: B
     protected lateinit var viewModel: V
 
 
@@ -48,7 +48,7 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel>(
     private fun injectSelf() {
         val application: Application = this.application
         if (application is DaggerApplication) {
-            application.inject(this)
+            application.injectActivity(this)
         } else {
             throw Exception("Application isn not a com.roxkax.mvvmcore.applicationDaggerApplication")
         }
