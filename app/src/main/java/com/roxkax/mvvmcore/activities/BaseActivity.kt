@@ -39,10 +39,10 @@ abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel>(
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        injectSelf()
         this.viewDataBinding = DataBindingUtil.setContentView(this, layoutId)
         this.viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass)
         this.viewDataBinding.setVariable(viewModelVariable, this.viewModel)
-        injectSelf()
     }
 
     private fun injectSelf() {
