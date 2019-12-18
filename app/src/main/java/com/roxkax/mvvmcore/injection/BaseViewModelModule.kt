@@ -1,7 +1,7 @@
 package com.roxkax.mvvmcore.injection
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.roxkax.mvvmcore.viewModels.BaseViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -24,7 +24,7 @@ abstract class BaseViewModelModule {
     abstract fun providesViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
     /**
-     * Annotation used as [MapKey] so that the [BaseViewModel] classes can be provided into a map to
+     * Annotation used as [MapKey] so that the [ViewModel] classes can be provided into a map to
      * be used inside the [ViewModelFactory]
      */
     @Target(
@@ -34,6 +34,6 @@ abstract class BaseViewModelModule {
     )
     @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
     @MapKey
-    annotation class ViewModelKey(val value: KClass<out BaseViewModel>)
+    annotation class ViewModelKey(val value: KClass<out ViewModel>)
 
 }
