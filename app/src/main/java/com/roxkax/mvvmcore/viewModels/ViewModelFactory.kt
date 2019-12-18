@@ -17,11 +17,11 @@ import kotlin.reflect.KClass
  */
 @Suppress("UNCHECKED_CAST")
 @Singleton
-class ViewModelFactory @Inject constructor(private val viewModels: Map<KClass<out @JvmSuppressWildcards BaseViewModel>, @JvmSuppressWildcards Provider<BaseViewModel>>) :
+class ViewModelFactory @Inject constructor(private val viewModels: Map<Class<out BaseViewModel>, @JvmSuppressWildcards Provider<BaseViewModel>>) :
     ViewModelProvider.Factory {
 
     /**
-     * Returns the correct [ViewModel] for the requested [KClass]..
+     * Returns the correct [ViewModel] for the requested [Class]..
      */
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         val viewModelClass = viewModels.keys.find { k -> k == modelClass }
