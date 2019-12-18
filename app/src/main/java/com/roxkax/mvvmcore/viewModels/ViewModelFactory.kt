@@ -17,7 +17,7 @@ import kotlin.reflect.KClass
  */
 @Suppress("UNCHECKED_CAST")
 @Singleton
-class ViewModelFactory @Inject constructor(private val viewModels: Map<@JvmSuppressWildcards KClass<out BaseViewModel>, @JvmSuppressWildcards Provider<BaseViewModel>>) :
+class ViewModelFactory @Inject constructor(private val viewModels: Map<KClass<out @JvmSuppressWildcards BaseViewModel>, @JvmSuppressWildcards Provider<BaseViewModel>>) :
     ViewModelProvider.Factory {
 
     /**
