@@ -15,7 +15,6 @@ import kotlin.reflect.KClass
  * @param viewModels A [Map] of [ViewModel] classes and their respective [Provider].
  *
  */
-@Suppress("UNCHECKED_CAST")
 @Singleton
 class ViewModelFactory @Inject constructor(private val viewModels: Map<Class<out BaseViewModel>, @JvmSuppressWildcards Provider<BaseViewModel>>) :
     ViewModelProvider.Factory {
@@ -24,12 +23,16 @@ class ViewModelFactory @Inject constructor(private val viewModels: Map<Class<out
      * Returns the correct [ViewModel] for the requested [Class]..
      */
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        val viewModelClass = viewModels.keys.find { k -> k == modelClass }
-        val provider = viewModels[viewModelClass]
-        provider?.let {
-            return it.get() as T
-        }
-        throw Exception("Could not provide viewModel for requested class")
+        viewModels.keys.firstOrNull { k -> k == modelClass }?.let {
+            val provider = viewModels[it]
+            try {
+                @Suppress("UNCHECKED_CAST")
+                return (provider?.get() as? T)
+                    ?: throw Exception("Could not provide viewModel for requested class")
+            } catch (e: Exception) {
+                throw RuntimeException(e)
+            }
+        }?: throw Exception("Could not provide viewModel for requested class")
     }
 }
 
