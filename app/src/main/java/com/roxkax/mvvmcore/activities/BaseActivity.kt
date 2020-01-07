@@ -43,6 +43,7 @@ abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel>(
         this.viewDataBinding = DataBindingUtil.setContentView(this, layoutId)
         this.viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass)
         this.viewDataBinding.setVariable(viewModelVariable, this.viewModel)
+        viewDataBinding.lifecycleOwner = this
     }
 
     private fun injectSelf() {
@@ -50,7 +51,7 @@ abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel>(
         if (application is DaggerApplication) {
             application.injectActivity(this)
         } else {
-            throw Exception("Application isn not a com.roxkax.mvvmcore.applicationDaggerApplication")
+            throw Exception("Application is not a com.roxkax.mvvmcore.applicationDaggerApplication")
         }
     }
 }
