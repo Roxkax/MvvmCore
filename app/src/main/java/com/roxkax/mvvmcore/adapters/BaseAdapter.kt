@@ -1,6 +1,7 @@
 package com.roxkax.mvvmcore.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -12,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 class BaseAdapter<T, B : ViewDataBinding>(
     private val items: List<T>,
     private val itemsResourceId: Int,
-    private val onBind: (B, T) -> Unit
+    private val onBind: (View, B, T) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -33,7 +34,7 @@ class BaseAdapter<T, B : ViewDataBinding>(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         DataBindingUtil.bind<B>(holder.itemView)?.let {
-            onBind(it, items[position])
+            onBind(holder.itemView, it, items[position])
         }
     }
 }
