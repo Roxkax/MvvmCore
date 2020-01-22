@@ -13,24 +13,19 @@ import javax.inject.Inject
 
 /**
  * An [AppCompatActivity] that abstracts the initialization of an Mvvm Activity
- * @param B Type of the desired binding class.
  * @param V Type of the associated ViewModel
  * @param layoutId The resource ID of the layout to be inflated, bound, and set as the
  *                 Activity's content.
- * @param viewModelVariable The BR id of the variable to be set
  * @param viewModelClass Class of the associated ViewModel
  */
-abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel>(
+abstract class BaseActivity<V : BaseViewModel>(
     private val layoutId: Int,
-    private val viewModelVariable: Int,
     private val viewModelClass: Class<V>
 ) : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private lateinit var viewDataBinding: B
-    protected lateinit var viewModel: V
+    lateinit var viewModel: V
 
 
     /**
@@ -40,10 +35,8 @@ abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         injectSelf()
-        this.viewDataBinding = DataBindingUtil.setContentView(this, layoutId)
+        this.setContentView(layoutId)
         this.viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass)
-        this.viewDataBinding.setVariable(viewModelVariable, this.viewModel)
-        viewDataBinding.lifecycleOwner = this
     }
 
     private fun injectSelf() {
