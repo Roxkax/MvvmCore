@@ -28,7 +28,7 @@ abstract class BaseFragment<B : ViewDataBinding, V : BaseViewModel>(
 
     protected lateinit var viewDataBinding: B
 
-    private lateinit var viewModel: V
+    protected lateinit var viewModel: V
 
 
     /**
