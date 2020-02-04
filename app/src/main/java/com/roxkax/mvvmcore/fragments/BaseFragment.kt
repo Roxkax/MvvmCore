@@ -52,7 +52,7 @@ abstract class BaseFragment<B : ViewDataBinding, V : BaseViewModel>(
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        this.viewDataBinding = DataBindingUtil.setContentView(this.requireActivity(), layoutId)
+        this.viewDataBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         this.viewDataBinding.setVariable(viewModelVariable, this.viewModel)
         viewDataBinding.lifecycleOwner = this
         return viewDataBinding.root
