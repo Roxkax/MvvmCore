@@ -2,6 +2,9 @@ package com.roxkax.mvvmcore.fragments
 
 import android.app.Application
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -32,17 +35,27 @@ abstract class BaseFragment<B : ViewDataBinding, V : BaseViewModel>(
 
 
     /**
-     * Sets the Fragment's content view and it's bindings.
      * Sets the associated ViewModel
+     * Call the injection method
      */
     @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         injectSelf()
-        this.viewDataBinding = DataBindingUtil.setContentView(this.requireActivity(), layoutId)
         this.viewModel = (this.requireActivity() as BaseActivity<V>).viewModel
+
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+        this.viewDataBinding = DataBindingUtil.setContentView(this.requireActivity(), layoutId)
         this.viewDataBinding.setVariable(viewModelVariable, this.viewModel)
         viewDataBinding.lifecycleOwner = this
+        return viewDataBinding.root
     }
 
     private fun injectSelf() {
