@@ -10,7 +10,6 @@ import javax.inject.Inject
 
 class ActivityTrackerService @Inject constructor() : Application.ActivityLifecycleCallbacks {
 
-    @ApplicationContext
     @Inject
     lateinit var context: Context
 
