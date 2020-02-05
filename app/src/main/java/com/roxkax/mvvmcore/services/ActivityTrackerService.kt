@@ -7,10 +7,8 @@ import android.os.Bundle
 import com.roxkax.mvvmcore.activities.BaseActivity
 import javax.inject.Inject
 
-class ActivityTrackerService @Inject constructor() : Application.ActivityLifecycleCallbacks {
-
-    @Inject
-    lateinit var context: Context
+class ActivityTrackerService @Inject constructor(context: Context) :
+    Application.ActivityLifecycleCallbacks {
 
     var currentActivity: BaseActivity? = null
 
