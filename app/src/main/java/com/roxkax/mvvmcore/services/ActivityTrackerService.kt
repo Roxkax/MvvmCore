@@ -5,13 +5,11 @@ import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import com.roxkax.mvvmcore.activities.BaseActivity
-import com.roxkax.mvvmcore.injection.annotations.ApplicationContext
 import javax.inject.Inject
 
 class ActivityTrackerService @Inject constructor() : Application.ActivityLifecycleCallbacks {
 
     @Inject
-    @ApplicationContext
     lateinit var context: Context
 
     var currentActivity: BaseActivity? = null
