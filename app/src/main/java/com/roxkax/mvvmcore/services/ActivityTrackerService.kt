@@ -11,6 +11,7 @@ import javax.inject.Inject
 class ActivityTrackerService @Inject constructor() : Application.ActivityLifecycleCallbacks {
 
     @Inject
+    @ApplicationContext
     lateinit var context: Context
 
     var currentActivity: BaseActivity? = null
