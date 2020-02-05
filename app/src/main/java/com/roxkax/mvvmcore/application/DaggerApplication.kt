@@ -7,7 +7,7 @@ import com.roxkax.mvvmcore.viewModels.BaseViewModel
 
 interface DaggerApplication {
 
-    fun <V : BaseViewModel, T : BaseActivity<V>> injectActivity(activity: T)
+    fun <T : BaseActivity> injectActivity(activity: T)
 
     fun <B : ViewDataBinding, V : BaseViewModel, T : BaseFragment<B, V>> injectFragment(fragment: T)
 }

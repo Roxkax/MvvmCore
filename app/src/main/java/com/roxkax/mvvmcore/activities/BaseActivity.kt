@@ -13,20 +13,10 @@ import javax.inject.Inject
 
 /**
  * An [AppCompatActivity] that abstracts the initialization of an Mvvm Activity
- * @param V Type of the associated ViewModel
  * @param layoutId The resource ID of the layout to be inflated, bound, and set as the
  *                 Activity's content.
- * @param viewModelClass Class of the associated ViewModel
  */
-abstract class BaseActivity<V : BaseViewModel>(
-    private val layoutId: Int,
-    private val viewModelClass: Class<V>
-) : AppCompatActivity() {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    lateinit var viewModel: V
-
+abstract class BaseActivity(private val layoutId: Int) : AppCompatActivity() {
 
     /**
      * Sets the Activity's content view and it's bindings.
@@ -36,7 +26,6 @@ abstract class BaseActivity<V : BaseViewModel>(
         super.onCreate(savedInstanceState)
         injectSelf()
         this.setContentView(layoutId)
-        this.viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass)
     }
 
     private fun injectSelf() {
