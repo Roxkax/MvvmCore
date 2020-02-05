@@ -6,5 +6,8 @@ import com.roxkax.mvvmcore.injection.BaseComponent
 /**
  * Base class to use as the application entry point.
  */
-abstract class BaseApplication<T : BaseComponent>(val component: T) : Application(),
-    DaggerApplication
+abstract class BaseApplication<T : BaseComponent> : Application(),
+    DaggerApplication {
+
+    abstract val component: T
+}
