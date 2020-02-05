@@ -1,5 +1,6 @@
 package com.roxkax.mvvmcore.injection
 
+import com.roxkax.mvvmcore.services.ActivityTrackerService
 import dagger.Component
 
 /**
@@ -8,5 +9,5 @@ import dagger.Component
  **/
 interface BaseComponent {
 
-
+    fun activityTrackerService(): ActivityTrackerService
 }
