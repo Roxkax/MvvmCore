@@ -14,5 +14,8 @@ abstract class BaseViewModel : ViewModel() {
     lateinit var activityTrackerService: ActivityTrackerService
 
 
-    val activity: BaseActivity? get() = activityTrackerService.currentActivity
+    val activity: BaseActivity?
+        get() {
+            return activityTrackerService.currentActivity
+        }
 }

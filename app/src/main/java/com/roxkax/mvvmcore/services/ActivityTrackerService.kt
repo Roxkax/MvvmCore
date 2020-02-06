@@ -6,7 +6,9 @@ import android.content.Context
 import android.os.Bundle
 import com.roxkax.mvvmcore.activities.BaseActivity
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class ActivityTrackerService @Inject constructor(context: Context) :
     Application.ActivityLifecycleCallbacks {
 
