@@ -11,7 +11,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.roxkax.mvvmcore.activities.BaseActivity
 import com.roxkax.mvvmcore.application.DaggerApplication
 import com.roxkax.mvvmcore.viewModels.BaseViewModel
 import javax.inject.Inject
@@ -28,7 +27,8 @@ import javax.inject.Inject
 abstract class BaseFragment<B : ViewDataBinding, V : BaseViewModel>(
     private val layoutId: Int,
     private val viewModelVariable: Int,
-    private val viewModelClass: Class<V>
+    private val viewModelClass: Class<V>,
+    val selfContainedViewModel: Boolean = true
 ) : Fragment() {
 
     @Inject
@@ -46,10 +46,12 @@ abstract class BaseFragment<B : ViewDataBinding, V : BaseViewModel>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         injectSelf()
-        this.activity?.let {
-            viewModel = ViewModelProviders.of(it, viewModelFactory).get(viewModelClass)
+        if (selfContainedViewModel) {
+            viewModel = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass)
+        } else {
+            viewModel = ViewModelProviders.of(this.requireActivity(), viewModelFactory)
+                .get((viewModelClass))
         }
-
     }
 
     override fun onCreateView(
